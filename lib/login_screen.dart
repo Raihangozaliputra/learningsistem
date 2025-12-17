@@ -1,0 +1,180 @@
+import 'package:flutter/material.dart';
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          // Content
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Spacer(flex: 2),
+                // Logo Placeholder
+                Center(
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFB73E3E), // Red color
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 48),
+                // Login Title
+                const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                // Email Field
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Email 365',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFB73E3E)),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFB73E3E), width: 2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                // Password Field
+                const TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFB73E3E)),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFB73E3E), width: 2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                // Login Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFB73E3E),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      elevation: 5,
+                    ),
+                    child: const Text(
+                      'Log In',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // Help Text
+                Center(
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Bantuan ?',
+                      style: TextStyle(
+                        color: Color(0xFFB73E3E),
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+                const Spacer(flex: 3),
+              ],
+            ),
+          ),
+           // Bottom Wave
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: ClipPath(
+              clipper: WaveClipper(),
+              child: Container(
+                height: 150,
+                color: const Color(0xFFB73E3E),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class WaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.moveTo(0, size.height); // Start at bottom left
+    path.lineTo(0, size.height * 0.5); // Move up to half height on left
+
+    // Quadratic bezier curve for the wave
+    // First control point (top of the wave)
+    var firstControlPoint = Offset(size.width * 0.35, 0);
+    // End point of first curve
+    var firstEndPoint = Offset(size.width * 0.7, size.height * 0.6);
+    
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
+        firstEndPoint.dx, firstEndPoint.dy);
+
+    // Second curve to the right
+     var secondControlPoint = Offset(size.width * 0.85, size.height * 0.85);
+     var secondEndPoint = Offset(size.width, size.height * 0.6);
+     
+     path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
+
+    path.lineTo(size.width, size.height); // Bottom right
+    path.close();
+    return path;
+  }
+  
+  // Alternative simpler wave if the above is too complex or doesn't match perfectly
+  // Let's try to match the image: 
+  // Left side is high (convex), right side is lower (concave)?
+  // Image: Left side starts at bottom. Rises up to a hill. Then goes down. Then slightly up?
+  // Actually, checking image "Login Page":
+  // The wave is at the bottom.
+  // Left side: Starts high?
+  // No, the wave is filled with red.
+  // Left edge: attached to bottom? Yes.
+  // Top edge of wave: Starts at left, maybe 150px high. Curves UP then DOWN.
+  // Wait, the image shows the wave on the left is TALLER than on the right?
+  // It looks like a hill on the left.
+  // Let's adjust the curve.
+  // Left (x=0) y=? High (small y value).
+  // Right (x=width) y=? Low (large y value).
+}
