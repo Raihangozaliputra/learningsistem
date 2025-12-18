@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'help_bottom_sheet.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -80,7 +82,12 @@ class LoginScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomeScreen()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFB73E3E),
                       foregroundColor: Colors.white,
@@ -102,7 +109,16 @@ class LoginScreen extends StatelessWidget {
                 // Help Text
                 Center(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        builder: (context) => const HelpBottomSheet(),
+                      );
+                    },
                     child: const Text(
                       'Bantuan ?',
                       style: TextStyle(
@@ -161,20 +177,9 @@ class WaveClipper extends CustomClipper<Path> {
     path.close();
     return path;
   }
-  
-  // Alternative simpler wave if the above is too complex or doesn't match perfectly
-  // Let's try to match the image: 
-  // Left side is high (convex), right side is lower (concave)?
-  // Image: Left side starts at bottom. Rises up to a hill. Then goes down. Then slightly up?
-  // Actually, checking image "Login Page":
-  // The wave is at the bottom.
-  // Left side: Starts high?
-  // No, the wave is filled with red.
-  // Left edge: attached to bottom? Yes.
-  // Top edge of wave: Starts at left, maybe 150px high. Curves UP then DOWN.
-  // Wait, the image shows the wave on the left is TALLER than on the right?
-  // It looks like a hill on the left.
-  // Let's adjust the curve.
-  // Left (x=0) y=? High (small y value).
-  // Right (x=width) y=? Low (large y value).
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
 }
