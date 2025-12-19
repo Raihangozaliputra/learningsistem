@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -86,10 +87,18 @@ class HomeTab extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              const CircleAvatar(
-                radius: 24,
-                backgroundColor: Color(0xFFB73E3E),
-                child: Icon(Icons.person, color: Colors.white),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                  );
+                },
+                child: const CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Color(0xFFB73E3E),
+                  child: Icon(Icons.person, color: Colors.white),
+                ),
               ),
             ],
           ),
