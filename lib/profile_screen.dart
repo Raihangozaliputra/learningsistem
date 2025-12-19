@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -169,10 +170,76 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
               ),
-            ] else if (_selectedTab == 1) ...[
-               const SizedBox(height: 100, child: Center(child: Text('Kelas Content'))),
-            ] else ...[
-               const SizedBox(height: 100, child: Center(child: Text('Edit Profile Content'))),
+            ],
+            if (_selectedTab == 1) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return const CourseCard(
+                        title: 'Flutter Mobile Development',
+                        progress: 0.65,
+                      );
+                    } else if (index == 1) {
+                      return const CourseCard(
+                        title: 'Web Design Masterclass',
+                        category: 'DESIGN',
+                        color: Colors.purple,
+                        progress: 0.45,
+                      );
+                    }
+                    return const CourseCard(
+                      title: 'Python for Data Science',
+                      category: 'DATA SCIENCE',
+                      color: Colors.green,
+                      progress: 0.30,
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 40),
+            ], 
+            if (_selectedTab == 2) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildTextField('Nama Pertama'),
+                    _buildTextField('Nama Terakhir'),
+                    _buildTextField('E-mail Address'),
+                    _buildTextField('Negara'),
+                    _buildTextField('Deskripsi', maxLines: 5),
+                    const SizedBox(height: 24),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[100],
+                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: const Text(
+                          'Simpan',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                  ],
+                ),
+              ),
             ],
           ],
         ),
@@ -234,6 +301,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: TextStyle(
               color: Colors.grey[700],
               fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField(String label, {int maxLines = 1}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.black87,
+            ),
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            maxLines: maxLines,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Color(0xFFB73E3E)),
+              ),
+              contentPadding: const EdgeInsets.all(16),
             ),
           ),
         ],
