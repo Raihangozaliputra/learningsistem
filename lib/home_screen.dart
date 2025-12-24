@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'announcement_detail_screen.dart';
 import 'profile_screen.dart';
 import 'mylearning_screen.dart';
 import 'notification_screen.dart';
@@ -278,6 +279,119 @@ class HomeTab extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+          const SizedBox(height: 32),
+
+          // Latest Announcement Section
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Pengumuman Terbaru',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text('Lihat Semua', style: TextStyle(color: Color(0xFFB73E3E))),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            height: 160,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                final colors = [
+                  [const Color(0xFF4285F4), const Color(0xFF34A853)],
+                  [const Color(0xFFFBBC05), const Color(0xFFEA4335)],
+                  [const Color(0xFF673AB7), const Color(0xFF9C27B0)],
+                ];
+                final titles = [
+                  'Workshop UI/UX Bersama Google',
+                  'Lomba Karya Tulis Ilmiah Nasional',
+                  'Beasiswa Unggulan Semester Ganjil',
+                ];
+                final dates = ['25 Des 2025', ' 2 Jan 2026', '10 Jan 2026'];
+
+
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AnnouncementDetailScreen(
+                          title: titles[index],
+                          date: dates[index],
+                          colors: colors[index],
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: const EdgeInsets.only(right: 16),
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: colors[index],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: colors[index][0].withOpacity(0.3),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Text(
+                                'Event',
+                                style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Text(
+                              dates[index],
+                              style: const TextStyle(color: Colors.white70, fontSize: 11),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          titles[index],
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text(
+                          'Klik untuk detail lebih lanjut',
+                          style: TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           const SizedBox(height: 32),
