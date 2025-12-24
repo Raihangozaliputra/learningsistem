@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
                     width: 80,
                     height: 80,
                     decoration: const BoxDecoration(
-                      color: Color(0xFFB73E3E), // Red color
+                      color: Color(0xFF4CAF50), // Green color
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
@@ -54,10 +54,10 @@ class LoginScreen extends StatelessWidget {
                     labelText: 'Email 365',
                     labelStyle: TextStyle(color: Colors.grey),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFB73E3E)),
+                      borderSide: BorderSide(color: Color(0xFF4CAF50)),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFB73E3E), width: 2),
+                      borderSide: BorderSide(color: Color(0xFF4CAF50), width: 2),
                     ),
                   ),
                 ),
@@ -69,10 +69,10 @@ class LoginScreen extends StatelessWidget {
                     labelText: 'Password',
                     labelStyle: TextStyle(color: Colors.grey),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFB73E3E)),
+                      borderSide: BorderSide(color: Color(0xFF4CAF50)),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFB73E3E), width: 2),
+                      borderSide: BorderSide(color: Color(0xFF4CAF50), width: 2),
                     ),
                   ),
                 ),
@@ -89,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFB73E3E),
+                      backgroundColor: const Color(0xFF4CAF50),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
@@ -113,8 +113,8 @@ class LoginScreen extends StatelessWidget {
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
                         ),
                         builder: (context) => const HelpBottomSheet(),
                       );
@@ -122,7 +122,7 @@ class LoginScreen extends StatelessWidget {
                     child: const Text(
                       'Bantuan ?',
                       style: TextStyle(
-                        color: Color(0xFFB73E3E),
+                        color: Color(0xFF4CAF50),
                         fontSize: 14,
                       ),
                     ),
@@ -141,7 +141,7 @@ class LoginScreen extends StatelessWidget {
               clipper: WaveClipper(),
               child: Container(
                 height: 150,
-                color: const Color(0xFFB73E3E),
+                color: const Color(0xFF4CAF50),
               ),
             ),
           ),

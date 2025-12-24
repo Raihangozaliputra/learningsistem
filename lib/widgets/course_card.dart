@@ -12,7 +12,7 @@ class CourseCard extends StatelessWidget {
     super.key,
     this.title = 'Flutter Mobile Development',
     this.category = 'DEVELOPMENT',
-    this.color = const Color(0xFFB73E3E),
+    this.color = const Color(0xFF4CAF50),
     this.rating = 4.8,
     this.duration = '12h 30m',
     this.progress,
@@ -126,7 +126,7 @@ class CourseCard extends StatelessWidget {
                       Text(
                         '${(progress! * 100).toInt()}%',
                         style: const TextStyle(
-                          color: Color(0xFFB73E3E),
+                          color: Color(0xFF4CAF50),
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           ),
@@ -140,7 +140,7 @@ class CourseCard extends StatelessWidget {
                       value: progress,
                       minHeight: 6,
                       backgroundColor: Colors.grey[200],
-                      valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFB73E3E)),
+                      valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF4CAF50)),
                     ),
                   ),
                 ],

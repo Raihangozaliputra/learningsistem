@@ -37,7 +37,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> with SingleTick
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F7), // Light grey background
       appBar: AppBar(
-        backgroundColor: const Color(0xFFB73E3E), // Primary Red
+        backgroundColor: const Color(0xFF4CAF50), // Primary Green
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -60,7 +60,11 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> with SingleTick
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 30),
             decoration: const BoxDecoration(
-              color: Color(0xFFB73E3E),
+              gradient: LinearGradient(
+                colors: [Color(0xFF66BB6A), Color(0xFF4CAF50)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(24),
                 bottomRight: Radius.circular(24),
@@ -98,7 +102,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> with SingleTick
                   ),
                   child: TabBar(
                     controller: _tabController,
-                    indicatorColor: Colors.black87,
+                    indicatorColor: const Color(0xFF4CAF50),
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorWeight: 3,
                     labelColor: Colors.black87,

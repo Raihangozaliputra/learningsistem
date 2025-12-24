@@ -14,11 +14,10 @@ class MyApp extends StatelessWidget {
       title: 'Learning Management System',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFB73E3E)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4CAF50)),
         useMaterial3: true,
       ),
       home: const SplashScreen(),
     );
   }
 }
-
