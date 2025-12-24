@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'widgets/course_card.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -47,8 +48,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                       ),
-                       // Adjust position if needed
-                       const SizedBox(height: 60), 
+                      // Adjust position if needed
+                      const SizedBox(height: 60),
                     ],
                   ),
                 ),
@@ -81,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-                
+
                 // Back Button (Optional, since it wasn't explicitly shown but usually needed)
                 Positioned(
                   top: 50,
@@ -91,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
-                 Positioned(
+                Positioned(
                   top: 50,
                   left: 0,
                   right: 0,
@@ -105,11 +106,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-
               ],
             ),
             const SizedBox(height: 60), // Space for the floating card
-
             // 3. Content Section (About Me)
             if (_selectedTab == 0) ...[
               Padding(
@@ -126,8 +125,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    _buildInfoItem('Email address', 'dandycandra@365.telkomuniversity.ac.id'),
-                    _buildInfoItem('Program Studi', 'D4 Teknologi Rekayasa Multimedia'),
+                    _buildInfoItem(
+                      'Email address',
+                      'dandycandra@365.telkomuniversity.ac.id',
+                    ),
+                    _buildInfoItem(
+                      'Program Studi',
+                      'D4 Teknologi Rekayasa Multimedia',
+                    ),
                     _buildInfoItem('Fakultas', 'FIT'),
                     const SizedBox(height: 32),
                     const Text(
@@ -139,11 +144,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    _buildInfoItem('First access to site', 'Monday, 7 September 2020, 9:27 AM (288 days 12 hours)'),
-                    _buildInfoItem('Last access to site', 'Tuesday, 22 June 2021, 9:44 PM (now)'),
-                    
+                    _buildInfoItem(
+                      'First access to site',
+                      'Monday, 7 September 2020, 9:27 AM (288 days 12 hours)',
+                    ),
+                    _buildInfoItem(
+                      'Last access to site',
+                      'Tuesday, 22 June 2021, 9:44 PM (now)',
+                    ),
+
                     const SizedBox(height: 40),
-                    
+
                     // Log Out Button
                     Align(
                       alignment: Alignment.centerRight,
@@ -151,7 +162,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFB73E3E),
-                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32,
+                            vertical: 12,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -166,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                     const SizedBox(height: 40),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
@@ -202,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 40),
-            ], 
+            ],
             if (_selectedTab == 2) ...[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -221,7 +235,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[100],
-                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32,
+                            vertical: 12,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -296,13 +313,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            value,
-            style: TextStyle(
-              color: Colors.grey[700],
-              fontSize: 14,
-            ),
-          ),
+          Text(value, style: TextStyle(color: Colors.grey[700], fontSize: 14)),
         ],
       ),
     );
