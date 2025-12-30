@@ -19,22 +19,11 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Spacer(flex: 2),
-                // Logo Placeholder
                 Center(
-                  child: Container(
-                    width: 80,
-                    height: 80,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF4CAF50), // Green color
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 10,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
-                    ),
+                  child: Image.asset(
+                    'asset/logouim.png',
+                    width: 120,
+                    height: 120,
                   ),
                 ),
                 const SizedBox(height: 48),

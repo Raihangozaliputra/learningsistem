@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
 import 'widgets/course_card.dart';
 import 'schedule_screen.dart';
+import 'login_screen.dart';
+import 'home_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -123,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 15,
                           offset: const Offset(0, 5),
                         ),
@@ -141,13 +142,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
 
-                // Back Button (Optional, since it wasn't explicitly shown but usually needed)
+                // Back Button (Fix: Navigate back home or pop)
                 Positioned(
                   top: 50,
                   left: 20,
                   child: IconButton(
                     icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      } else {
+                        // If accessed via Bottom Nav, direct refresh to Home
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomeScreen()),
+                        );
+                      }
+                    },
                   ),
                 ),
                 Positioned(
@@ -158,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Text(
                       'Profile',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withValues(alpha: 0.8),
                         fontSize: 18,
                       ),
                     ),
@@ -189,7 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.03),
+                            color: Colors.black.withValues(alpha: 0.03),
                             blurRadius: 10,
                             offset: const Offset(0, 4),
                           ),
@@ -200,7 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           _buildModernInfoItem(
                             icon: Icons.email_rounded,
                             label: 'Email address',
-                            value: 'dandypratama@telkomuniversity.ac.id',
+                            value: 'dandypratama@uim.ac.id',
                             color: Colors.blue,
                           ),
                           _buildModernDivider(),
@@ -236,7 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.03),
+                            color: Colors.black.withValues(alpha: 0.03),
                             blurRadius: 10,
                             offset: const Offset(0, 4),
                           ),
@@ -265,7 +276,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LoginScreen()),
+                            (route) => false,
+                          );
+                        },
                         icon: const Icon(Icons.logout_rounded, size: 20),
                         label: const Text(
                           'Keluar Aplikasi',
@@ -402,7 +419,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                     ),
                     const SizedBox(height: 12),
-                    _buildAcademicCard(
+                     _buildAcademicCard(
                       icon: Icons.history_edu_rounded,
                       title: 'Riwayat Akademik',
                       subtitle: 'Status registrasi & semester',
@@ -413,6 +430,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         );
                       },
                     ),
+                    const SizedBox(height: 24),
+                    const Text(
+                      'Dokumen Digital',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // New Student ID Card (Kartu Pelajar)
+                    _buildIDCard(),
                     const SizedBox(height: 40),
                   ],
                 ),
@@ -556,7 +585,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       height: 30,
       width: 1,
-      color: Colors.white.withOpacity(0.3),
+      color: Colors.white.withValues(alpha: 0.3),
     );
   }
 
@@ -575,7 +604,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Text(
           label,
           style: TextStyle(
-            color: Colors.white.withOpacity(0.8),
+            color: Colors.white.withValues(alpha: 0.8),
             fontSize: 12,
           ),
         ),
@@ -674,26 +703,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildInfoItem(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(value, style: TextStyle(color: Colors.grey[700], fontSize: 14)),
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildTextField(String label, {int maxLines = 1}) {
     return Padding(
@@ -728,6 +738,127 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderSide: const BorderSide(color: Color(0xFF4CAF50)),
               ),
               contentPadding: const EdgeInsets.all(16),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildIDCard() {
+    return Container(
+      width: double.infinity,
+      height: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF2E7D32), Color(0xFF4CAF50)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          // Background pattern/circles
+          Positioned(
+            right: -50,
+            top: -50,
+            child: CircleAvatar(
+              radius: 100,
+              backgroundColor: Colors.white.withOpacity(0.05),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'KARTU MAHASISWA',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    const Icon(Icons.school, color: Colors.white70, size: 24),
+                  ],
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 75,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: const Icon(Icons.person, size: 40, color: Color(0xFF4CAF50)),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'DANDY CANDRA PRATAMA',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'NIM: 1202200000',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'TRM - Fakultas Ilmu Terapan',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'UNIVERSITAS ISLAM MADURA',
+                      style: TextStyle(
+                        color: Colors.white.withAlpha(230),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                    const Icon(Icons.qr_code_2_rounded, color: Colors.white, size: 30),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

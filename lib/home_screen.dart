@@ -6,6 +6,7 @@ import 'notification_screen.dart';
 import 'widgets/course_card.dart';
 import 'deadline_list_screen.dart';
 import 'schedule_screen.dart';
+import 'course_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: _onItemTapped,
         selectedIndex: _selectedIndex,
-        indicatorColor: const Color(0xFF4CAF50).withOpacity(0.2),
+        indicatorColor: const Color(0xFF4CAF50).withValues(alpha: 0.2),
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home, color: Color(0xFF4CAF50)),
@@ -243,31 +244,8 @@ class HomeTab extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               
-              // Attendance Section (Compact)
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF4CAF50).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.verified, color: Color(0xFF4CAF50), size: 20),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'Kehadiran:',
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                    const SizedBox(width: 6),
-                    const Text(
-                      '92%',
-                      style: TextStyle(color: Color(0xFF4CAF50), fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.chevron_right, color: Colors.grey, size: 16),
-                  ],
-                ),
-              ),
+              // Interactive Attendance Card
+              const AttendanceCard(),
               const SizedBox(height: 24),
 
               // Class Schedule & Deadline Details
@@ -453,33 +431,91 @@ class HomeTab extends StatelessWidget {
 
               // Popular Courses
               const Text(
-                'Kursus Populer',
+                'Progres Kelas',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               const SizedBox(height: 16),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 3,
+                itemCount: 8,
                 itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return const CourseCard(
-                      title: 'Flutter Mobile Development',
-                      progress: 0.65,
-                    );
-                  } else if (index == 1) {
-                    return const CourseCard(
-                      title: 'Web Design Masterclass',
-                      category: 'DESIGN',
-                      color: Colors.purple,
-                      progress: 0.45,
-                    );
-                  }
-                  return const CourseCard(
-                    title: 'Python for Data Science',
-                    category: 'DATA SCIENCE',
-                    color: Colors.green,
-                    progress: 0.30,
+                  final List<Map<String, dynamic>> courses = [
+                    {
+                      'title': 'Flutter Mobile Development',
+                      'category': 'MOBILE DEV',
+                      'color': Colors.blue,
+                      'progress': 0.65,
+                      'duration': '12h 30m',
+                    },
+                    {
+                      'title': 'Web Design Masterclass',
+                      'category': 'DESIGN',
+                      'color': Colors.purple,
+                      'progress': 0.45,
+                      'duration': '10h 15m',
+                    },
+                    {
+                      'title': 'Python for Data Science',
+                      'category': 'DATA SCIENCE',
+                      'color': Colors.green,
+                      'progress': 0.30,
+                      'duration': '15h 45m',
+                    },
+                    {
+                      'title': 'Backend with Node.js',
+                      'category': 'BACKEND',
+                      'color': Colors.orange,
+                      'progress': 0.20,
+                      'duration': '14h 10m',
+                    },
+                    {
+                      'title': 'Advanced UI/UX Design',
+                      'category': 'DESIGN',
+                      'color': Colors.pink,
+                      'progress': 0.15,
+                      'duration': '8h 20m',
+                    },
+                    {
+                      'title': 'Cloud Computing Basics',
+                      'category': 'CLOUD',
+                      'color': Colors.lightBlue,
+                      'progress': 0.10,
+                      'duration': '9h 50m',
+                    },
+                    {
+                      'title': 'Cybersecurity Essentials',
+                      'category': 'SECURITY',
+                      'color': Colors.red,
+                      'progress': 0.05,
+                      'duration': '11h 00m',
+                    },
+                    {
+                      'title': 'AI & Machine Learning',
+                      'category': 'DATA SCIENCE',
+                      'color': Colors.teal,
+                      'progress': 0.0,
+                      'duration': '20h 30m',
+                    },
+                  ];
+
+                  final course = courses[index];
+                  return CourseCard(
+                    title: course['title'],
+                    category: course['category'],
+                    color: course['color'],
+                    progress: course['progress'],
+                    duration: course['duration'],
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CourseDetailScreen(
+                          courseTitle: course['title'],
+                          lecturer: '[ADY]',
+                          courseCode: 'SM-${4200 + index}',
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -491,7 +527,192 @@ class HomeTab extends StatelessWidget {
   }
 }
 
+class AttendanceCard extends StatefulWidget {
+  const AttendanceCard({super.key});
+
+  @override
+  State<AttendanceCard> createState() => _AttendanceCardState();
+}
+
+class _AttendanceCardState extends State<AttendanceCard> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isExpanded = !_isExpanded;
+        });
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: const Color(0xFF4CAF50).withValues(alpha: 0.2),
+            width: 1,
+          ),
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF4CAF50).withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.verified, color: Color(0xFF4CAF50), size: 20),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Kehadiran Keseluruhan',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Row(
+                        children: [
+                          const Text(
+                            '92%',
+                            style: TextStyle(
+                              color: Color(0xFF4CAF50),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '+2% dari minggu lalu',
+                            style: TextStyle(
+                              color: Colors.green[700],
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  _isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  color: const Color(0xFF4CAF50),
+                ),
+              ],
+            ),
+            if (_isExpanded) ...[
+              const SizedBox(height: 20),
+              const Divider(height: 1),
+              const SizedBox(height: 20),
+              const Text(
+                'Statistik Kehadiran Mingguan',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 120,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    _buildBar('Sen', 0.8),
+                    _buildBar('Sel', 0.6),
+                    _buildBar('Rab', 0.9),
+                    _buildBar('Kam', 1.0),
+                    _buildBar('Jum', 0.7),
+                    _buildBar('Sab', 0.4),
+                    _buildBar('Min', 0.0),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'Kehadiran Anda sangat baik minggu ini! Pertahankan.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBar(String day, double percentage) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              width: 12,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            AnimatedContainer(
+              duration: const Duration(seconds: 1),
+              curve: Curves.elasticOut,
+              width: 12,
+              height: 80 * percentage,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF66BB6A), Color(0xFF4CAF50)],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          day,
+          style: const TextStyle(
+            fontSize: 10,
+            color: Colors.grey,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class CategoryItem extends StatelessWidget {
+
   final IconData icon;
   final String label;
   final Color color;

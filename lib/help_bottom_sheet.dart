@@ -108,7 +108,7 @@ class _HelpBottomSheetState extends State<HelpBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           Text(
-            'Akses hanya untuk Dosen dan Mahasiswa Telkom University.',
+            'Akses hanya untuk Dosen dan Mahasiswa Universitas Islam Madura.',
             style: TextStyle(height: 1.5),
           ),
           SizedBox(height: 16),
@@ -118,7 +118,7 @@ class _HelpBottomSheetState extends State<HelpBottomSheet> {
           ),
           SizedBox(height: 16),
           Text(
-            'Username (Akun iGracias) ditambahkan "@365.telkomuniversity.ac.id"\nPassword (Akun iGracias) pada kolom Password.',
+            'Username (Akun SIM) ditambahkan "@uim.ac.id"\nPassword (Akun SIM) pada kolom Password.',
             style: TextStyle(height: 1.5),
           ),
           SizedBox(height: 16),
@@ -132,8 +132,8 @@ class _HelpBottomSheetState extends State<HelpBottomSheet> {
             style: TextStyle(height: 1.5),
           ),
           SizedBox(height: 8),
-          Text('Mail : infoceloe@telkomuniversity.ac.id'),
-          Text('whatsapp : +62 821-1666-3563'),
+          Text('Mail : info@uim.ac.id'),
+          Text('whatsapp : +62 812-3456-7890'),
         ],
       );
     } else {
@@ -141,7 +141,7 @@ class _HelpBottomSheetState extends State<HelpBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           Text(
-            'Access restricted only for Lecturer and Student of Telkom University',
+            'Access restricted only for Lecturer and Student of Universitas Islam Madura',
             style: TextStyle(height: 1.5),
           ),
           SizedBox(height: 16),
@@ -151,7 +151,7 @@ class _HelpBottomSheetState extends State<HelpBottomSheet> {
           ),
           SizedBox(height: 16),
           Text(
-            'Username (iGracias Account) followed with "@365.telkomuniversity.ac.id"\nPassword (SSO / iGracias Account) on Password Field.',
+            'Username (SIM Account) followed with "@uim.ac.id"\nPassword (SIM Account) on Password Field.',
             style: TextStyle(height: 1.5),
           ),
           SizedBox(height: 16),
@@ -165,8 +165,8 @@ class _HelpBottomSheetState extends State<HelpBottomSheet> {
             style: TextStyle(height: 1.5),
           ),
           SizedBox(height: 8),
-          Text('mail : infoceloe@telkomuniversity.ac.id'),
-          Text('whatsapp : +62 821-1666-3563'),
+          Text('mail : info@uim.ac.id'),
+          Text('whatsapp : +62 812-3456-7890'),
         ],
       );
     }
